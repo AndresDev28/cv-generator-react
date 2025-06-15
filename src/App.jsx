@@ -10,6 +10,8 @@ function App() {
     phone: ''
   });
 
+  const [isEditing, setIsEditing] = useState(true);
+
   function handleGeneralInfoChange(e) {
     const { id, value } = e.target;
     setGeneralInfo (prevInfo => ({
@@ -24,6 +26,9 @@ function App() {
       <GeneralInfo
         data={generalInfo}
         onDataChange={handleGeneralInfoChange}
+        isEditing={isEditing}
+        onSubmit={() => setIsEditing(false)} // Pasamos una función que cambia el estado
+        onEdit={() => setIsEditing(true)} // Y otra para la acción contraria
       />
     </>
   )
