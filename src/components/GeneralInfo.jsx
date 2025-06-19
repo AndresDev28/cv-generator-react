@@ -10,7 +10,7 @@ export default function GeneralInfo({data, onDataChange, isEditing, onSubmit, on
           onSubmit();
         }}>
         <div>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name"><strong>Name </strong></label>
           <input  
             type="text" 
             id="name" 
@@ -19,7 +19,7 @@ export default function GeneralInfo({data, onDataChange, isEditing, onSubmit, on
             />
         </div>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"><strong>Email </strong></label>
           <input 
             type="email" 
             id="email" 
@@ -28,7 +28,7 @@ export default function GeneralInfo({data, onDataChange, isEditing, onSubmit, on
             />
         </div>
         <div>
-          <label htmlFor="phone">Phone</label>
+          <label htmlFor="phone"><strong>Phone </strong></label>
           <input 
             type="tel" 
             id="phone" 

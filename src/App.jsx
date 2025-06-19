@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import GeneralInfo from './components/GeneralInfo'
+import Education from './components/Education'
 
 
 function App() {
@@ -20,6 +21,18 @@ function App() {
     }));
   }
 
+  const [educationList, setEducationList] = useState([{
+    id: crypto.randomUUID(),
+    school: 'Universidad Central de Venezuela',
+    degree: 'Licenciatura en Ciencias de la Computación',
+    startDate: '2018',
+    endDate: '2023'
+  }])
+
+  function handleAddEducation(newEducationItem) {
+    setEducationList(prevList => [...prevList, newEducationItem]);
+  }
+
   return (
     <>
       <h1>CV-Generator</h1>
@@ -29,6 +42,10 @@ function App() {
         isEditing={isEditing}
         onSubmit={() => setIsEditing(false)} // Pasamos una función que cambia el estado
         onEdit={() => setIsEditing(true)} // Y otra para la acción contraria
+      />
+      <Education
+        items={educationList}
+        onAddEducation={handleAddEducation}
       />
     </>
   )
