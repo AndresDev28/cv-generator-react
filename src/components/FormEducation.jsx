@@ -1,14 +1,20 @@
 import { useState } from 'react';
 
-export default function FormEducation({onSave, onCancel}) {
+export default function FormEducation({onSave, onCancel, initialData}) {
+
+  // Usa `initialData` para inicializar el estado.
+  // Si `initialData` existe (modo edición), úsala.
+  // Si no (modo añadir), usa un objeto vacío.
 
   // ESTADO LOCAL: objeto para manejar los datos
-  const [educationData, setEducationData] = useState({
+  const [educationData, setEducationData] = useState(
+    initialData || {
     school: '',
     degree: '',
     startDate: '',
     endDate: ''
-  });
+  }
+);
 
   // FUNCIÓN DE MANEJO: para actualizar el estado local
   function handleChange(e) {
@@ -19,11 +25,20 @@ export default function FormEducation({onSave, onCancel}) {
     }));
   }
 
-  // FUNCIÓN DE ENVÍO: Se ejecuta cuando el form es enviado
+  // FUNCIÓN DE ENVÍO: Se ejecuta cuando el form es enviado (con el modo edición es un poco más inteligente)
+  // Si estamos en modo edición, ya tenemos una ID
   function handleSubmit(e) {
     e.preventDefault();
-    // Llamamos la función que pasamos por props, dandole los datos del form y con su nuevo ID
-    onSave({...educationData, id: crypto.randomUUID() });
+    // Llamamos a onSave con los datos del formulario.
+    // Si era una edición, la ID ya estaba en `educationData` desde `initialData`.
+    // Si era una adición, le añadimos una nueva ID.
+    // Si estamos en modo edicion, `initialData` existirá.
+    const isEditingMode = Boolean(initialData);
+    const finalData = {
+      ...educationData, // Toma todos los datos del fomulario
+      id: isEditingMode ? initialData.id : crypto.randomUUID() // Usa la ID correcta
+    };
+    onSave(finalData);
   }
   return (
     <form onSubmit={handleSubmit}>

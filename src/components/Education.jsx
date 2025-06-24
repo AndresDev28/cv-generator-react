@@ -1,17 +1,12 @@
 import { useState } from 'react';
 import FormEducation from './FormEducation';
 
-// Recibe la lista 'items' y la función 'onAddEducation' de App.jsx
-export default function Education({items, onAddEducation}) {
+export default function Education({ items, onAddEducation, onDeleteEducation, onUpdateEducation }) {
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [editingId, setEditingId] = useState(null);
 
-  // Estado local para controlar si el formulario es visible.
-  const [isFormVisible, setIsFormVisible] = useState(false)
-
-  // Función para manejar el guardado que viene de FormEducation
   function handleSave(newItem) {
-    // 1. Llama a la función que viene de App.jsx
     onAddEducation(newItem);
-    // 2. Oculta el formulario despues de guardar
     setIsFormVisible(false);
   }
 
@@ -19,19 +14,49 @@ export default function Education({items, onAddEducation}) {
     <section>
       <h2>Education</h2>
 
-      {items.map((item, index) => (
-        <div key={item.id}>
-          <h3>Study #{index + 1}</h3>
-          <p><strong>School: </strong>{item.school}</p>
-          <p><strong>Degree: </strong>{item.degree}</p>
-          <p><strong>Start Date: </strong>{item.startDate}</p>
-          <p><strong>End Date: </strong>{item.endDate}</p>
-        </div>
-      ))}
+      {/* Usamos llaves {} para poder definir una constante antes de retornar */}
+      {items.map((item, index) => { // <-- Cambio 1: Paréntesis a llave
+        
+        // La constante se define aquí, dentro del bloque del map
+        const isEditing = item.id === editingId;
 
+        // Ahora retornamos explícitamente el JSX
+        return (
+          <div key={item.id}>
+            {/* El operador ternario para el renderizado condicional */}
+            {isEditing ? (
+              // Si estamos editando...
+              <FormEducation
+                initialData={item} // Pasa los datos del item actual
+                onSave={(updatedItem) => { // Define qué hacer al guardar
+                  onUpdateEducation(updatedItem); // Llama a la función de App
+                  setEditingId(null); // Sale del modo edición
+                }}
+                onCancel={() => { // Define qué hacer al cancelar
+                  setEditingId(null); // Simplemente sale del modo editar
+                }}
+              />
+            ) : (
+              // Si no, la vista normal
+              <div>
+                <h3>Study #{index + 1}</h3>
+                <p><strong>School: </strong>{item.school}</p>
+                <p><strong>Degree: </strong>{item.degree}</p>
+                <p><strong>Start Date: </strong>{item.startDate}</p>
+                <p><strong>End Date: </strong>{item.endDate}</p>
+                
+                {/* Cambio 2: El botón de Edit debe llamar a setEditingId */}
+                <button onClick={() => setEditingId(item.id)}>Edit</button>
+                <button onClick={() => onDeleteEducation(item.id)}>Delete</button>
+              </div>
+            )}
+          </div>
+        ); // <-- Cierre del paréntesis del return
+      })} {/* <-- Cierre de la llave y paréntesis del map */}
+
+      {/* Lógica para añadir un nuevo estudio */}
       {!isFormVisible ? (
-        <button
-          onClick={() => setIsFormVisible(true)}>
+        <button onClick={() => setIsFormVisible(true)}>
           Add Education
         </button>
       ) : (
@@ -41,5 +66,5 @@ export default function Education({items, onAddEducation}) {
         />
       )}
     </section>
-  )
+  );
 }
