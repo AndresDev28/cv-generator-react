@@ -4,7 +4,7 @@ export default function GeneralInfo({data, onDataChange, isEditing, onSubmit, on
     <section>
       <h2>General Information</h2>
       {isEditing ? (
-        // Si isEditing es true, renderiza el formulario
+        // If isEditing is true, render the form
         <form onSubmit={(e) => {
           e.preventDefault();
           onSubmit();
@@ -41,7 +41,7 @@ export default function GeneralInfo({data, onDataChange, isEditing, onSubmit, on
         </div>
       </form>
       ) : (
-        // Si isEditing es false, renderiza la VISTA PREVIA DE LA PRESENTACÍON
+        // If isEditing is false, render the PRESENTATION PREVIEW
         <div>
           <p><strong>Name:</strong> {data.name}</p>
           <p><strong>Email:</strong> {data.email}</p>

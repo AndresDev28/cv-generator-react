@@ -14,30 +14,30 @@ export default function Education({ items, onAddEducation, onDeleteEducation, on
     <section>
       <h2>Education</h2>
 
-      {/* Usamos llaves {} para poder definir una constante antes de retornar */}
-      {items.map((item, index) => { // <-- Cambio 1: Paréntesis a llave
+      {/* We use braces {} to be able to define a constant before returning */}
+      {items.map((item, index) => { // <-- Change 1: Parenthesis to brace
         
-        // La constante se define aquí, dentro del bloque del map
+        // The constant is defined here, inside the map block
         const isEditing = item.id === editingId;
 
-        // Ahora retornamos explícitamente el JSX
+        // Now we explicitly return the JSX
         return (
           <div key={item.id}>
-            {/* El operador ternario para el renderizado condicional */}
+            {/* The ternary operator for conditional rendering */}
             {isEditing ? (
-              // Si estamos editando...
+              // If we are editing...
               <FormEducation
-                initialData={item} // Pasa los datos del item actual
-                onSave={(updatedItem) => { // Define qué hacer al guardar
-                  onUpdateEducation(updatedItem); // Llama a la función de App
-                  setEditingId(null); // Sale del modo edición
+                initialData={item} // Pass the data of the current item
+                onSave={(updatedItem) => { // Define what to do on save
+                  onUpdateEducation(updatedItem); // Call the function from App
+                  setEditingId(null); // Exit edit mode
                 }}
-                onCancel={() => { // Define qué hacer al cancelar
-                  setEditingId(null); // Simplemente sale del modo editar
+                onCancel={() => { // Define what to do on cancel
+                  setEditingId(null); // Simply exit edit mode
                 }}
               />
             ) : (
-              // Si no, la vista normal
+              // If not, the normal view
               <div>
                 <h3>Study #{index + 1}</h3>
                 <p><strong>School: </strong>{item.school}</p>
@@ -45,16 +45,16 @@ export default function Education({ items, onAddEducation, onDeleteEducation, on
                 <p><strong>Start Date: </strong>{item.startDate}</p>
                 <p><strong>End Date: </strong>{item.endDate}</p>
                 
-                {/* Cambio 2: El botón de Edit debe llamar a setEditingId */}
+                {/* Change 2: The Edit button should call setEditingId */}
                 <button onClick={() => setEditingId(item.id)}>Edit</button>
                 <button onClick={() => onDeleteEducation(item.id)}>Delete</button>
               </div>
             )}
           </div>
-        ); // <-- Cierre del paréntesis del return
-      })} {/* <-- Cierre de la llave y paréntesis del map */}
+        ); // <-- Closing parenthesis of the return
+      })} {/* <-- Closing brace and parenthesis of the map */}
 
-      {/* Lógica para añadir un nuevo estudio */}
+      {/* Logic to add a new study */}
       {!isFormVisible ? (
         <button onClick={() => setIsFormVisible(true)}>
           Add Education

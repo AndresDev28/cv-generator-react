@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 export default function FormEducation({onSave, onCancel, initialData}) {
 
-  // Usa `initialData` para inicializar el estado.
-  // Si `initialData` existe (modo edición), úsala.
-  // Si no (modo añadir), usa un objeto vacío.
+  // Use `initialData` to initialize the state.
+  // If `initialData` exists (edit mode), use it.
+  // If not (add mode), use an empty object.
 
-  // ESTADO LOCAL: objeto para manejar los datos
+  // LOCAL STATE: object to manage the data
   const [educationData, setEducationData] = useState(
     initialData || {
     school: '',
@@ -16,27 +16,27 @@ export default function FormEducation({onSave, onCancel, initialData}) {
   }
 );
 
-  // FUNCIÓN DE MANEJO: para actualizar el estado local
+  // HANDLER FUNCTION: to update the local state
   function handleChange(e) {
     const {id, value} = e.target;
     setEducationData (prevData => ({
-      ...prevData, // Copia todo lo que ya había
-      [id]: value // Sobrescribe solo la propiedad que cambió
+      ...prevData, // Copy everything that was already there
+      [id]: value // Overwrite only the property that changed
     }));
   }
 
-  // FUNCIÓN DE ENVÍO: Se ejecuta cuando el form es enviado (con el modo edición es un poco más inteligente)
-  // Si estamos en modo edición, ya tenemos una ID
+  // SUBMIT FUNCTION: Runs when the form is submitted (it's a bit smarter in edit mode)
+  // If we are in edit mode, we already have an ID
   function handleSubmit(e) {
     e.preventDefault();
-    // Llamamos a onSave con los datos del formulario.
-    // Si era una edición, la ID ya estaba en `educationData` desde `initialData`.
-    // Si era una adición, le añadimos una nueva ID.
-    // Si estamos en modo edicion, `initialData` existirá.
+    // We call onSave with the form data.
+    // If it was an edit, the ID was already in `educationData` from `initialData`.
+    // If it was an addition, we add a new ID.
+    // If we are in edit mode, `initialData` will exist.
     const isEditingMode = Boolean(initialData);
     const finalData = {
-      ...educationData, // Toma todos los datos del fomulario
-      id: isEditingMode ? initialData.id : crypto.randomUUID() // Usa la ID correcta
+      ...educationData, // Take all the data from the form
+      id: isEditingMode ? initialData.id : crypto.randomUUID() // Use the correct ID
     };
     onSave(finalData);
   }
