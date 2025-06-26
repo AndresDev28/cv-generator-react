@@ -1,12 +1,68 @@
-# React + Vite
+# CV Generator Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive web application built with React to dynamically create, edit, and preview a curriculum vitae. This project was developed as part of the React curriculum of **[The Odin Project](https://www.theodinproject.com/)**.
 
-Currently, two official plugins are available:
+### ✨ [View Live Demo](https://andres-dev-react-cv-generator.netlify.app/) ✨
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Screenshot of the CV Generator application](./src/assets/screencapture.png)
 
-## Expanding the ESLint configuration
+## 🚀 About the Project
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The goal of this project is to apply core React concepts to build a fully functional application from scratch. It allows users to enter their personal, educational, and work experience information through interactive forms and preview the result in real-time.
+
+## 🛠️ Main Features
+
+- **General Information Section:** Add and edit your name, email, and phone number.
+- **Dynamic Education and Experience Sections:**
+  - **Create:** Add new study or job entries through a modal.
+  - **Read:** View all entries in a clear and organized list.
+  - **Update:** Edit any existing entry directly from the interface.
+  - **Delete:** Remove entries you no longer need.
+- **Modern User Interface:** Uses modals for a clean user experience when filling forms, avoiding page reloads or content jumps.
+- **Real-Time Rendering:** All changes are instantly reflected in the CV preview.
+
+## 💻 Built With
+
+- **[React](https://react.dev/)** – Core library for building the user interface.
+- **[Vite](https://vitejs.dev/)** – Next-generation development and build tool.
+- **JavaScript (ES6+)** – Client-side logic.
+- **CSS3** – Custom styling using Flexbox and CSS variables for a responsive and maintainable layout.
+
+## 🧠 Key Concepts Learned
+
+This project provided deep immersion into the React ecosystem, reinforcing concepts such as:
+
+- **Component-Based Architecture** – Breaking the UI into reusable pieces.
+- **State Management (`useState`)** – Handling local and complex state (objects and arrays).
+- **Props** – One-way data flow from parent to child components.
+- **Lifting State Up** – Centralizing shared state in the closest common ancestor.
+- **Conditional Rendering** – Toggling between view/edit modes and showing modals.
+- **List Rendering and `keys`** – Efficiently mapping data arrays to UI elements.
+- **Controlled Components** – Managing forms with React as the single source of truth.
+- **React Portals (`createPortal`)** – Rendering modals outside the main DOM hierarchy to avoid styling issues.
+
+## 🏁 Getting Started
+
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/AndresDev28/cv-generator-react
+    ```
+
+2. Navigate to the project directory:
+    ```bash
+    cd your-repository
+    ```
+
+3. Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+4. Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+Then open [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal) in your browser.

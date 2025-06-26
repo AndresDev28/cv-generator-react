@@ -1,11 +1,11 @@
 export default function GeneralInfo({data, onDataChange, isEditing, onSubmit, onEdit}) {
 
   return (
-    <section>
+    <section className="cv-section">
       <h2>General Information</h2>
       {isEditing ? (
         // If isEditing is true, render the form
-        <form onSubmit={(e) => {
+        <form className="general-info-form" onSubmit={(e) => {
           e.preventDefault();
           onSubmit();
         }}>
@@ -37,16 +37,25 @@ export default function GeneralInfo({data, onDataChange, isEditing, onSubmit, on
             />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button className="cv-add-btn" type="submit">Submit</button>
         </div>
       </form>
       ) : (
         // If isEditing is false, render the PRESENTATION PREVIEW
         <div>
-          <p><strong>Name:</strong> {data.name}</p>
-          <p><strong>Email:</strong> {data.email}</p>
-          <p><strong>Phone:</strong> {data.phone}</p>
-          <button 
+          <p>
+            <span className="cv-label">Name: </span>
+            <span className="cv-value">{data.name}</span>
+          </p>
+          <p>
+          <span className="cv-label">Email: </span>
+          <span className="cv-value">{data.email}</span>
+          </p>
+          <p>
+          <span className="cv-label">Phone: </span>
+          <span className="cv-value">{data.phone}</span>
+          </p>
+          <button className="cv-edit-btn"
             type="button"
             onClick={() => onEdit()}
             >Edit

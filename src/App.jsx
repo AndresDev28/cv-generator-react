@@ -99,7 +99,7 @@ function App() {
 
 
   return (
-    <>
+    <div className="cv-container">
       <h1>CV-Generator</h1>
       <GeneralInfo
         data={generalInfo}
@@ -120,7 +120,7 @@ function App() {
         onDeleteExperience={handleDeleteExperience}
         onUpdateExperience={handleUpdateExperience}
       />
-    </>
+    </div>
   );
 }
 

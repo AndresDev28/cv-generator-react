@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import FormEducation from './FormEducation';
+import Modal from './Modal/Modal';
 
 export default function Education({ items, onAddEducation, onDeleteEducation, onUpdateEducation }) {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -10,60 +11,63 @@ export default function Education({ items, onAddEducation, onDeleteEducation, on
     setIsFormVisible(false);
   }
 
+  function handleEditSave(updatedItem) {
+    onUpdateEducation(updatedItem);
+    setEditingId(null);
+  }
+
   return (
-    <section>
+    <section className="cv-section">
       <h2>Education</h2>
 
-      {/* We use braces {} to be able to define a constant before returning */}
-      {items.map((item, index) => { // <-- Change 1: Parenthesis to brace
-        
-        // The constant is defined here, inside the map block
-        const isEditing = item.id === editingId;
-
-        // Now we explicitly return the JSX
-        return (
-          <div key={item.id}>
-            {/* The ternary operator for conditional rendering */}
-            {isEditing ? (
-              // If we are editing...
-              <FormEducation
-                initialData={item} // Pass the data of the current item
-                onSave={(updatedItem) => { // Define what to do on save
-                  onUpdateEducation(updatedItem); // Call the function from App
-                  setEditingId(null); // Exit edit mode
-                }}
-                onCancel={() => { // Define what to do on cancel
-                  setEditingId(null); // Simply exit edit mode
-                }}
-              />
-            ) : (
-              // If not, the normal view
-              <div>
-                <h3>Study #{index + 1}</h3>
-                <p><strong>School: </strong>{item.school}</p>
-                <p><strong>Degree: </strong>{item.degree}</p>
-                <p><strong>Start Date: </strong>{item.startDate}</p>
-                <p><strong>End Date: </strong>{item.endDate}</p>
-                
-                {/* Change 2: The Edit button should call setEditingId */}
-                <button onClick={() => setEditingId(item.id)}>Edit</button>
-                <button onClick={() => onDeleteEducation(item.id)}>Delete</button>
-              </div>
-            )}
+      {items.map((item, index) => (
+        <div key={item.id} className="cv-item">
+          <div>
+            <h3>Study #{index + 1}</h3>
+            <p>
+            <span className="cv-label">School: </span>
+            <span className="cv-value">{item.school}</span>
+            </p>
+            <p>
+            <span className="cv-label">Degree: </span>
+            <span className="cv-value">{item.degree}</span>
+            </p>
+            <p>
+              <span className="cv-label">Start date: </span>
+              <span className="cv-value">{item.startDate}</span></p>
+            <p>
+            <span className="cv-label">End date: </span>
+            <span className="cv-value">{item.endDate}</span>
+            </p>
+            <button className="cv-edit-btn" onClick={() => setEditingId(item.id)}>Edit</button>
+            <button className="cv-delete-btn" onClick={() => onDeleteEducation(item.id)}>Delete</button>
           </div>
-        ); // <-- Closing parenthesis of the return
-      })} {/* <-- Closing brace and parenthesis of the map */}
+        </div>
+      ))}
 
-      {/* Logic to add a new study */}
+      {/* Modal para editar */}
+      {editingId && (
+        <Modal isOpen={!!editingId} onClose={() => setEditingId(null)}>
+          <FormEducation
+            initialData={items.find(item => item.id === editingId)}
+            onSave={handleEditSave}
+            onCancel={() => setEditingId(null)}
+          />
+        </Modal>
+      )}
+
+      {/* Modal para añadir */}
       {!isFormVisible ? (
-        <button onClick={() => setIsFormVisible(true)}>
+        <button className="cv-add-btn" onClick={() => setIsFormVisible(true)}>
           Add Education
         </button>
       ) : (
-        <FormEducation 
-          onSave={handleSave}
-          onCancel={() => setIsFormVisible(false)}
-        />
+        <Modal isOpen={isFormVisible} onClose={() => setIsFormVisible(false)}>
+          <FormEducation
+            onSave={handleSave}
+            onCancel={() => setIsFormVisible(false)}
+          />
+        </Modal>
       )}
     </section>
   );

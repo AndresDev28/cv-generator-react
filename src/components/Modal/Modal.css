@@ -1,0 +1,87 @@
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modal-content label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.modal-content button[type="submit"],
+.modal-content button[type="button"] {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-content button[type="submit"],
+.modal-content button[type="button"]:hover {
+  background: #0056b3;
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #333;
+}
